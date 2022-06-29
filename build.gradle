@@ -1,0 +1,39 @@
+plugins {
+    id 'java'
+}
+
+group 'edu.psuti.rd'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.testng:testng:7.4.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+def checkstyleConfigDir = "${rootProject.projectDir}/config/checkstyle"
+allprojects {
+    apply plugin: 'checkstyle'
+
+    checkstyle {
+        toolVersion = '6.2'
+        configFile = new File("${checkstyleConfigDir}/checkstyle.xml".toString())
+        configProperties = [
+                'configDir': rootProject.file('config/checkstyle'),
+                'baseDir'  : rootDir
+        ]
+//        reportsDir = new File("${buildDir}/checkstyle".toString())
+        ignoreFailures = false
+    }
+}
+
+build.dependsOn checkstyleMain

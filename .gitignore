@@ -1,0 +1,5 @@
+.idea/
+.gradle/
+/build/
+*.iml
+git remote add origin https://git.psuti.ru/op20/rd_21/zhezha.git
